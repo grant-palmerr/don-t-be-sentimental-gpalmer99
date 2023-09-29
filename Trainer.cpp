@@ -84,16 +84,16 @@ void Trainer::printTrainingData() {
         DSString tweet;
 
         for (int i = 0; line[i] != '\0'; i++) {
-            // Toggle insideQuotes if a quote is encountered
+            // if a quote is found
             if (line[i] == '\"') {
                 insideQuotes = !insideQuotes;
             }
 
-            // Check for field separator or end of line
+            // find either newline or endl
             if ((line[i] == ',' && !insideQuotes) || line[i] == '\n') {
                 DSString field = DSString(line).substring(startIndex, i - startIndex);
 
-                // Assign the field based on its index
+                // assign the field based on its index
                 if (fieldIndex == SID) {
                     sentiment = field;
                 } else if (fieldIndex == IDID) {

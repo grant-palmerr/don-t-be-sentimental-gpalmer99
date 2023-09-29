@@ -3,6 +3,7 @@
 
 #include "DSString.h"
 #include "Tweet.h"
+#include <vector>
 
 class Trainer {
 
