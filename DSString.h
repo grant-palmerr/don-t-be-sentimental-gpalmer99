@@ -36,6 +36,7 @@ public:
     // you can also implement the move versions for the big 5 (C+11)
 
     size_t length() const; // returns the length of the string
+    void setLength(size_t newLength);
 
     char &operator[](size_t); // returns a reference to the character at the given index
 
@@ -70,7 +71,7 @@ public:
     DSString toLower() const; // look at the ASCII table for this!
 
     /**
-     * the c_str function returns a pointer a null-terminated c-string holding the
+     * the c_str function returns a pointer to a null-terminated c-string holding the
      * contents of this object. Since data already has a `\0`
      * at the end of the string in DSString so you can just return a pointer to data.
      **/
