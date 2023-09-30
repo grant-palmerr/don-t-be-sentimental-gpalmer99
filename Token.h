@@ -4,15 +4,27 @@
 #include "DSString.h"
 
 class Token {
-   private:
-    int good;
-    int bad;
-    float ratioGOODtoBAD;
-    DSString token;
+    private:
+    DSString tokenString;
+    int goodCount;
+    int badCount;
 
-   public:
-    Token();
-    Token(int good, int bad, float ratio, DSString token);
+    public:
+    //constructor
+    Token(const DSString& str);
+
+    //getters
+    int getGoodCount() const;
+
+    int getBadCount() const;
+
+    DSString getTokenString() const;
+    
+
+    //other methods
+    void incGood();
+    void incBad();
+    
 };
 
 #endif

@@ -1,22 +1,33 @@
-#include <iostream>
-
-#include "DSString.h"
-#include "Tweet.h"
-#include "Trainer.h"
 #include "Token.h"
 
-Token::Token() {
-    good = 0;
-    bad = 0;
-    ratioGOODtoBAD = good/bad;
-    token = "";
+Token::Token(const DSString& str) {
+    tokenString = str;
+    goodCount = 0;
+    badCount = 0;
+
 }
 
-Token::Token(int goodDataOccurances, int badDataOccurances, float ratio, DSString string)
-{
-    good = goodDataOccurances;
-    bad = badDataOccurances;
-    ratioGOODtoBAD = ratio;
-    token = string;
+void Token::incGood() 
+{ 
+    ++goodCount; 
 }
 
+void Token::incBad() 
+{ 
+    ++badCount; 
+}
+
+int Token::getGoodCount() const 
+{ 
+    return goodCount; 
+}
+
+int Token::getBadCount() const 
+{ 
+    return badCount; 
+}
+
+DSString Token::getTokenString() const 
+{ 
+    return tokenString; 
+}

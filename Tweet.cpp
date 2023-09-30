@@ -61,13 +61,14 @@ void Tweet::tokenizeTweet() {
             if (token[token.length() - 1] == ' ') {
                 token = token.substring(0, token.length() - 1);
             }
-                tokens.push_back(token); //add it to that tweet objects vector of tokens 
+                Token newToken(token);
+                tokens.push_back(newToken); //add it to that tweet objects vector of tokens 
                 start = i + 1;  // continue from where we left off and do it again
             }
         }
 }
 
-std::vector<DSString> Tweet::getTokens()
+std::vector<Token> Tweet::getTokens()
 {
     return tokens;
 }

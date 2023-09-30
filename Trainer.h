@@ -1,38 +1,38 @@
 #ifndef TRAINER_H
 #define TRAINER_H
 
-#include "DSString.h"
-#include "Tweet.h"
-#include <vector>
 #include <map>
-#include <utility> //need pairs for values of keys in map
+#include <vector>
+
+#include "DSString.h"
+#include "Token.h"
+#include "Tweet.h"
 
 class Trainer {
+   private:
+    std::vector<Tweet> trainingTweets;
 
-    private:
-        std::vector<Tweet> trainingTweets;
-        
-        int SID = -1; // comma sentiment id location of sentiment in CSV
-        int IDID = -1; // comma id location of id in CSV
-        int TWID = -1; // comma id of tweet location in CSV
+    int SID = -1;   // comma sentiment id location of sentiment in CSV
+    int IDID = -1;  // comma id location of id in CSV
+    int TWID = -1;  // comma id of tweet location in CSV
 
-    public:
+   public:
 
-        void parseTrainData();
+    std::map<DSString, Token> tokenMap;
 
-        //tests
-        void getTrainingData();
-        void print();
+    void parseTrainData();
 
-        void populateTrainingVector(DSString sentiment, DSString id, DSString tweetTEXT);
-        void cleanTrainingVector();
-        void testTrainer();
-        DSString clean(DSString& uncleanedText);
-        void tokenizeTweets();
-        std::vector<Tweet>& getTrainingTweets();
+    // tests
+    void getTrainingData();
+    void print();
 
-
+    void populateTrainingVector(DSString sentiment, DSString id, DSString tweetTEXT);
+    void cleanTrainingVector();
+    void testTrainer();
+    DSString clean(DSString& uncleanedText);
+    void tokenizeTweets();
+    std::vector<Tweet>& getTrainingTweets();
+    
 };
-
 
 #endif
