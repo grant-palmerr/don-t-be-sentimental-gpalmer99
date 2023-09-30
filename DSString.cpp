@@ -1,7 +1,5 @@
 #include "DSString.h"
 
-#include "string.h"
-
 /*
  * Implement the functions defined in DSString.h. You may add more functions as needed
  * for the project.
@@ -20,15 +18,17 @@ DSString::DSString() {
 
 // constructor to convert to a cstring
 DSString::DSString(const char *input) {
-    len = 0;                      // initalize length variable
-    while (input[len] != '\0') {  // checks for end of c-string
+    len = 0;
+    while (input[len] != '\0') {
         ++len;
-    }  // gets the length of the string!
+    }
 
     data = new char[len + 1];
-    strcpy(data, input);
 
-    //data[len] = '\0';
+    // Instead of strcpy(data, input);
+    for (size_t i = 0; i <= len; ++i) {
+        data[i] = input[i];
+    }
 }
 
 // destructor
@@ -42,32 +42,29 @@ DSString &DSString::operator=(const DSString &rhs) {
     // dont have two objects pointing to the same location
     // is this stealing the pointer from rhs and assigning it to lhs or it actually making a copy of rhs
 
-    // is this a deep copy or a shallow copy? of the object
-
     // DSString lhs = *this;
-
     if (data == rhs.data && len == rhs.len) {
         return *this;
     }
-    // delete
+    //delete
     delete[] data;
-    // allocate
+    //alocate
     data = new char[rhs.len + 1];
-    // copy
-    strcpy(data, rhs.data);
     // point lhs to new string and clean up pointers
     // redirect pointer
     // fix length
     len = rhs.len;
 
-    return *this;
+    // copy
+    for (size_t i = 0; i <= len; ++i) {
+        data[i] = rhs.data[i];
+    }
 
-    // check if vals are the same if they are just return the data in the object
+    return *this;
+     // check if vals are the same if they are just return the data in the object
 
     // else delete that data, allocate enough space for the new rhs, and copy the stuff in and then return the new data in the object
 }
-
-// CAN I USE STRCPY on Assignment operator, copy constructor, and constructor?
 
 // copy constructor
 DSString::DSString(const DSString &rhs) {
