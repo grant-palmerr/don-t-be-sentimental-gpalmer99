@@ -57,7 +57,7 @@ void Trainer::parseTrainData() {
     std::cout << "Tweet Index: " << TWID << std::endl;
 }
 
-void Trainer::printTrainingData() {
+void Trainer::getTrainingData() {
     std::cout << "IN PRINT" << std::endl;
 
     FILE* file2 = fopen("/users7/cse/gpalmer/2341Projects/assignment-2-don-t-be-sentimental-gpalmer99/data/train_dataset_20k.csv", "r");
@@ -73,7 +73,7 @@ void Trainer::printTrainingData() {
     int lineCount = 0;
 
     // Loop to read each line
-    while (fgets(line, 1024, file2) && lineCount < 7) {
+    while (fgets(line, 1024, file2) && lineCount < 3) {
         // Initialize variables for this line
         bool insideQuotes = false;
         int startIndex = 0;
@@ -82,12 +82,16 @@ void Trainer::printTrainingData() {
         DSString sentiment;
         DSString id;
         DSString tweet;
+        
+        //std::cout << "About to read in new field..." << std::endl;
 
         for (int i = 0; line[i] != '\0'; i++) {
             // if a quote is found
             if (line[i] == '\"') {
                 insideQuotes = !insideQuotes;
             }
+
+            //std::cout << "IN FOR LOOP, LINE COUNT: " << line[i] << std::endl;
 
             // find either newline or endl
             if ((line[i] == ',' && !insideQuotes) || line[i] == '\n') {
@@ -107,27 +111,39 @@ void Trainer::printTrainingData() {
                 startIndex = i + 1;
             }
         }
+
         // Print the extracted fields
-        // std::cout << "Sentiment: " << sentiment << ", ID: " << id << ", Tweet: " << tweet << std::endl;
+        //std::cout << "Current Line Count: " << lineCount << std::endl;
+        std::cout << "Sentiment: " << sentiment << ", ID: " << id << ", Tweet: " << tweet << std::endl;
         // Update line count
         populateTrainingVector(sentiment, id, tweet);
 
         lineCount++;
+        //std::cout << "Updated Line Count: " << lineCount << std::endl;
     }
 }
 
 
 void Trainer::populateTrainingVector(DSString sentiment, DSString id, DSString tweet) {
+    std::cout << "Received parameters - Sentiment: " << sentiment << ", ID: " << id << ", Tweet: " << tweet << std::endl;
+
+    // create a new tweet object with nessecary constructors and add it to the vector
     Tweet newTweet(sentiment, id, tweet);
     trainingTweets.push_back(newTweet);
+
+    // debugging statements 
+    std::cout << "Successfully populated vector. New size: " 
+              << trainingTweets.size() << std::endl;
 }
 
+//debugging method
 void Trainer::testTrainer() {
     for (std::vector<Tweet>::iterator it = trainingTweets.begin(); it != trainingTweets.end(); ++it) {
         std::cout << "Sentiment: " << it->getSentiment() << ", ID: " << it->getId() << ", Tweet: " << it->getTweetText() << std::endl;
     }
 }
 
+//cleaning method to clean my tweets from special characters, unnessecary punctuation, and non alphanum 
 DSString Trainer::clean(DSString& textToClean) {
     size_t j = 0;  // Position where the next cleaned character will be written
     size_t len = textToClean.length();  // Get the current length
@@ -163,7 +179,6 @@ DSString Trainer::clean(DSString& textToClean) {
     textToClean = textToClean.toLower();
 
     return textToClean;
-
 
 }
 
@@ -202,7 +217,32 @@ size_t counter = 0;
 for(Tweet& tweet : trainingTweets) 
 {
     DSString currentTweetText = tweet.getTweetText();
-    std::cout << "Tweet #: " << counter << ": " << currentTweetText << std::endl;
+    DSString currentTweetID = tweet.getId();
+    DSString currentTweetSentiment = tweet.getSentiment();
+    
+    std::cout << "Tweet #: " << counter << " TEXT: " << currentTweetText << std::endl;
+    std::cout << "Tweet #: " << counter << " ID: " << currentTweetID << std::endl;
+    std::cout << "Tweet #: " << counter << " SENTIMENT: " << currentTweetSentiment << std::endl;
     ++counter;
 }
 }
+
+void Trainer::tokenizeTweets() {
+    for (Tweet& tweet : trainingTweets) {
+        tweet.tokenizeTweet();
+
+        std::vector<DSString> testTokens = tweet.getTokens(); //grab THAT Tweet objects tokens, each has a sentiment attached to it. 
+        std::cout << "Tokens for tweet ID " << tweet.getId() << " with sentiment " << tweet.getSentiment() << " are:" << std::endl;
+
+        for (const auto& token : testTokens) {
+            std::cout << token << "_-_-_-";  // Print each token followed by a separator
+        }
+
+        std::cout << std::endl; 
+    }
+}
+
+std::vector<Tweet>& Trainer::getTrainingTweets() {
+    return trainingTweets;
+}
+

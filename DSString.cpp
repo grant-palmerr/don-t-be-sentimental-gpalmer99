@@ -18,17 +18,17 @@ DSString::DSString() {
     len = 0;
 }
 
-// constructor to convert a string to a cstring
+// constructor to convert to a cstring
 DSString::DSString(const char *input) {
     len = 0;                      // initalize length variable
     while (input[len] != '\0') {  // checks for end of c-string
         ++len;
     }  // gets the length of the string!
 
-    data = new char[len];
+    data = new char[len + 1];
     strcpy(data, input);
 
-    // data[len] = '\0';
+    //data[len] = '\0';
 }
 
 // destructor
@@ -72,17 +72,17 @@ DSString &DSString::operator=(const DSString &rhs) {
 // copy constructor
 DSString::DSString(const DSString &rhs) {
     len = rhs.len;
+    data = new char[len + 1];  // +1 for the null-terminator
 
-    data = new char[len + 1];
+    // copy each character
+    for (size_t i = 0; i < len; ++i) {
+        data[i] = rhs.data[i];
+    }
 
-    strcpy(data, rhs.data);
-
-    // do
-    //  data = *(rhs.data);
-
-    // same as: storedValue = new int; *storedValue = *(rhs.storedValue);
-    // or: storedValue = new int; write(rhs.read());
+    // add null-terminator
+    data[len] = '\0';
 }
+
 
 // returns pointer to start of string
 char *DSString::c_str() const {
@@ -123,12 +123,12 @@ DSString DSString::operator+(const DSString &rhs) const {
     // and len is the length of data
 
     // Copy data to newString
-    for (int i = 0; i < len; ++i) {
+    for (size_t i = 0; i < len; ++i) {
         newString[i] = data[i];
     }
 
     // Append rhs.data to newString
-    for (int i = 0; i < rhs.len; ++i) {
+    for (size_t i = 0; i < rhs.len; ++i) {
         newString[len + i] = rhs.data[i];
     }
 

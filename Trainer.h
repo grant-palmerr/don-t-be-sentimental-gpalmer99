@@ -4,6 +4,8 @@
 #include "DSString.h"
 #include "Tweet.h"
 #include <vector>
+#include <map>
+#include <utility> //need pairs for values of keys in map
 
 class Trainer {
 
@@ -15,16 +17,19 @@ class Trainer {
         int TWID = -1; // comma id of tweet location in CSV
 
     public:
+
         void parseTrainData();
 
         //tests
-        void printTrainingData();
+        void getTrainingData();
         void print();
 
         void populateTrainingVector(DSString sentiment, DSString id, DSString tweetTEXT);
         void cleanTrainingVector();
         void testTrainer();
         DSString clean(DSString& uncleanedText);
+        void tokenizeTweets();
+        std::vector<Tweet>& getTrainingTweets();
 
 
 };

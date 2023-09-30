@@ -54,11 +54,10 @@ int main()
     std::cout << "PARSING CSV FILE" << std::endl;
     trainer.parseTrainData();
     std::cout << "PARSING DONE NOW PRINTING...." << std::endl;
-    trainer.printTrainingData();
-
+    trainer.getTrainingData();
     trainer.cleanTrainingVector();
-    
     trainer.print();
+    trainer.tokenizeTweets();
 
     
     std::cout << "found ddd: " << binary_search(strings.begin(), strings.end(), DSString("ddd")) << "\n";
@@ -66,3 +65,6 @@ int main()
 
     return 0;
 }
+
+//fix DSString
+
