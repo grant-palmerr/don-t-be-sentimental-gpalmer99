@@ -1,5 +1,11 @@
 #include "Token.h"
 
+Token::Token(){
+    tokenString = "";
+    goodCount = 0;
+    badCount = 0;
+}
+
 Token::Token(const DSString& str) {
     tokenString = str;
     goodCount = 0;

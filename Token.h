@@ -10,7 +10,9 @@ class Token {
     int badCount;
 
     public:
+
     //constructor
+    Token();
     Token(const DSString& str);
 
     //getters

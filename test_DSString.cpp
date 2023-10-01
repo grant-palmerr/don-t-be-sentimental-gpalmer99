@@ -57,11 +57,12 @@ int main()
     trainer.getTrainingData();
     trainer.cleanTrainingVector();
     trainer.print();
-    trainer.tokenizeTweets();
+    trainer.tokenizeAndMapTweets();
+    trainer.printTokenMap();
 
     
-    std::cout << "found ddd: " << binary_search(strings.begin(), strings.end(), DSString("ddd")) << "\n";
-    std::cout << "found zzz: " << binary_search(strings.begin(), strings.end(), DSString("zzz")) << "\n";
+    //std::cout << "found ddd: " << binary_search(strings.begin(), strings.end(), DSString("ddd")) << "\n";
+    //std::cout << "found zzz: " << binary_search(strings.begin(), strings.end(), DSString("zzz")) << "\n";
 
     return 0;
 }

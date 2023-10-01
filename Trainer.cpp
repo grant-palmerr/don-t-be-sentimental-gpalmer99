@@ -151,7 +151,7 @@ DSString Trainer::clean(DSString& textToClean) {
 
     for (size_t i = 0; i < len; ++i) {
         char currentChar = textToClean[i];
-        // Check if the character is alphanumeric or a space
+        //  if the character is alphanumeric or a space
         if (isalnum(currentChar) || isspace(currentChar)) {
             textToClean[j++] = currentChar;
         }
@@ -160,7 +160,7 @@ DSString Trainer::clean(DSString& textToClean) {
             textToClean[j++] = currentChar;
         }
         // Check if it's a punctuation and at the end of a word
-        else if ((currentChar == '.' || currentChar == '!' || currentChar == '?') &&
+        else if ((currentChar == '!' || currentChar == '?') &&
                  (i == len - 1 || isspace(textToClean[i + 1]))) {
             textToClean[j++] = currentChar;
         }
@@ -181,6 +181,7 @@ DSString Trainer::clean(DSString& textToClean) {
 
     return textToClean;
 }
+
 
 // modifying vector in place so not making a large copy and instead reutnring void
 
@@ -210,6 +211,7 @@ void Trainer::cleanTrainingVector() {
 }
 
 void Trainer::print() {
+    //print tweet object members
     size_t counter = 0;
     for (Tweet& tweet : trainingTweets) {
         DSString currentTweetText = tweet.getTweetText();
@@ -223,21 +225,62 @@ void Trainer::print() {
     }
 }
 
-void Trainer::tokenizeTweets() {
+void Trainer::tokenizeAndMapTweets() {
     for (Tweet& tweet : trainingTweets) {
         tweet.tokenizeTweet();
-        std::vector<Token> tweetTokens = tweet.getTokens();  // Now returns vector of Token objects
-        //here add soemthing that gets nonStopTokens
+        std::vector<DSString> tweetTokens = tweet.getTokens();  // Now returns vector of DSString objects
+        DSString sentiment = tweet.getSentiment();
 
-        // For testing, let's print the tokens
-        for (std::vector<Token>::const_iterator it = tweetTokens.begin(); it != tweetTokens.end(); ++it) {
-            std::cout << it->getTokenString() << "|";
+        // debugging rint tokens for each tweet
+        std::cout << "Tokens for tweet with sentiment " << sentiment << " are: " << std::endl;
+
+        for (std::vector<DSString>::const_iterator it = tweetTokens.begin(); it != tweetTokens.end(); ++it) {
+            DSString tokenString = *it;
+            std::cout << "Processing token: " << tokenString << std::endl;
+/*
+            // Uncomment your map code here and add debugging prints
+            std::cout << "About to insert into map..." << std::endl;
+            if (tokenMap.find(tokenString) != tokenMap.end()) {
+                // element exists, update counts
+                if (sentiment == "4") {
+                    tokenMap[tokenString].incGood();
+                } else {
+                    tokenMap[tokenString].incBad();
+                }
+            } else {
+                // element doesn't exist, add to tokenMap
+                Token newToken(tokenString);
+                if (sentiment == "4") {
+                    newToken.incGood();
+                } else {
+                    newToken.incBad();
+                }
+                tokenMap[tokenString] = newToken;
+            }
+            
+            std::cout << "Successfully inserted into map." << std::endl;
+            */
         }
-
-        std::cout << std::endl;
     }
+
+    std::cout << std::endl;  
 }
 
 std::vector<Tweet>& Trainer::getTrainingTweets() {
     return trainingTweets;
+}
+
+
+
+// print the contents of the tokenMap
+void Trainer::printTokenMap() {
+    std::cout << "Printing Token Map:" << std::endl;
+
+    // Iterate through the map and print each key-value pair
+    for (const auto& pair : tokenMap) {
+        const DSString& tokenString = pair.first;
+        const Token& token = pair.second;
+
+        std::cout << "Token: " << tokenString << ", Good Count: " << token.getGoodCount() << ", Bad Count: " << token.getBadCount() << std::endl;
+    }
 }

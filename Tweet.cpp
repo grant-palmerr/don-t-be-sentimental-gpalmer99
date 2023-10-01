@@ -43,32 +43,48 @@ void Tweet::setTweetText(const DSString& twt) {
 }
 
 void Tweet::tokenizeTweet() {
+    size_t start = 0;
+    size_t end = 0;
+    size_t length = tweetText.length();
 
-        size_t start = 0;
-        size_t end = 0;
-        size_t length = tweetText.length();
+    for (size_t i = 0; i < length; ++i) {
+        char c = tweetText[i];
 
-        for (size_t i = 0; i < length; ++i) {
-            char c = tweetText[i];
-            //looking to see if a a tweet reaches a newline, space, tab, etc.
-            if (c == ' ' || c == '\n' || c == '\t' || i == length - 1) {
+        // checks for any special punctuation
+        if (c == '!' || c == '?') {
+            if (start != i) {  // Avoid empty tokens
                 end = i;
-                if (i == length - 1) {
-                    end++;
-                }
                 DSString token = tweetText.substring(start, end - start);
-                // have had issues with my tokenizer sometimes leaving addtional spaces so added an addtional check for a  trailing space and remove it if its there
+                tokens.push_back(token);
+            }
+            // Add the punctuation as a separate token
+            char tempStr[2] = {c, '\0'};
+            tokens.push_back(DSString(tempStr));
+
+            start = i + 1;
+            continue;
+        }
+
+        // Check for spaces, newlines, etc.
+        if (c == ' ' || c == '\n' || c == '\t' || i == length - 1) {
+            end = i;
+            if (i == length - 1) {
+                end++;
+            }
+            DSString token = tweetText.substring(start, end - start);
+
+            // Remove trailing spaces
             if (token[token.length() - 1] == ' ') {
                 token = token.substring(0, token.length() - 1);
             }
-                Token newToken(token);
-                tokens.push_back(newToken); //add it to that tweet objects vector of tokens 
-                start = i + 1;  // continue from where we left off and do it again
-            }
+
+            tokens.push_back(token);  // Add it to the tweet object's vector of tokens
+            start = i + 1;  // Continue from where we left off
         }
+    }
 }
 
-std::vector<Token> Tweet::getTokens()
+std::vector<DSString> Tweet::getTokens()
 {
     return tokens;
 }

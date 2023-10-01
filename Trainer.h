@@ -30,8 +30,11 @@ class Trainer {
     void cleanTrainingVector();
     void testTrainer();
     DSString clean(DSString& uncleanedText);
+    void tokenizeAndMapTweets();
     void tokenizeTweets();
     std::vector<Tweet>& getTrainingTweets();
+
+    void printTokenMap(); // print map contents
     
 };
 

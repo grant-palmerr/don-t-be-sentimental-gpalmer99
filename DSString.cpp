@@ -16,7 +16,7 @@ DSString::DSString() {
     len = 0;
 }
 
-// constructor to convert to a cstring
+// constructor a DSString from a cstring
 DSString::DSString(const char *input) {
     len = 0;
     while (input[len] != '\0') {
@@ -25,7 +25,7 @@ DSString::DSString(const char *input) {
 
     data = new char[len + 1];
 
-    // Instead of strcpy(data, input);
+    // not  strcpy
     for (size_t i = 0; i <= len; ++i) {
         data[i] = input[i];
     }
@@ -36,7 +36,6 @@ DSString::~DSString() {
     delete[] data;  // FREEEEE THE MEMORY needs brackets since array
 }
 
-// assignment operator = i wanna make a current object (this) look like another object reference
 DSString &DSString::operator=(const DSString &rhs) {
     //(this == lhs == calling object for which we call this function)
     // dont have two objects pointing to the same location
@@ -105,8 +104,6 @@ char &DSString::operator[](size_t i) {
     return data[i];
 }
 
-// HAVE TO IMPLEMENT NOT STRCPY
-
 // string concatenation operator
 DSString DSString::operator+(const DSString &rhs) const {
     // get length of the concatenated string
@@ -116,20 +113,18 @@ DSString DSString::operator+(const DSString &rhs) const {
     // allocate space for the new concatenated string
 
     char *newString = new char[newLen + 1];  // a pointer to  point to the first character of the newly allocated  char  c string array.
-    // Assuming data, rhs.data, and newString are char pointers
-    // and len is the length of data
 
-    // Copy data to newString
+    // copy data to newString
     for (size_t i = 0; i < len; ++i) {
         newString[i] = data[i];
     }
 
-    // Append rhs.data to newString
+    // add rhs.data to newString
     for (size_t i = 0; i < rhs.len; ++i) {
         newString[len + i] = rhs.data[i];
     }
 
-    // Null-terminate the new string
+    // nullterminate the new string
     newString[len + rhs.len] = '\0';
 
     DSString ADDEDString(newString);
@@ -139,41 +134,56 @@ DSString DSString::operator+(const DSString &rhs) const {
     return ADDEDString;
 }
 
+// true if both DSString objects have the same length and contain the same characters.
+// otherwise, returns false.
 bool DSString::operator==(const DSString &rhs) const {
-    // first check if lengths are equal
+    // check if the lengths of both strings are equal, if not they cant be equal
     if (len != rhs.len) {
         return false;
     }
 
+    // iterate through each character in the string to check for equality.
     for (size_t i = 0; i < len; i++) {
+        // if a character is different, return false.
         if (data[i] != rhs.data[i]) {
-            return false;  // if at any point do the cstring array values not match return false
+            return false;
         }
     }
 
+    // else gone through all checks and strings are equal
     return true;
 }
 
-// less than operator
-bool DSString::operator<(const DSString &rhs) const {
-    int pos = 0;
 
+//less-than operator
+// returns true if the lhs is lexicographically smaller than the rhs object. (lhs < rhs) 
+bool DSString::operator<(const DSString &rhs) const {
+    int pos = 0;  // position variable to start at the beginning of the strings.
+
+    // iterate through each character in both strings until reaching the end of either string.
     while (data[pos] != '\0' && rhs.data[pos] != '\0') {
+        // lexicographical rules = if a character in lhs is greater than the corresponding character in rhs, lhs cannot be smaller.
         if (data[pos] > rhs.data[pos]) {
             return false;
-        } else if (data[pos] < rhs.data[pos]) {
+        } 
+        // if a character in lhs is smaller than the corresponding character in rhs, lhs is smaller.
+        else if (data[pos] < rhs.data[pos]) {
             return true;
         }
+        //increment
+        pos++;
     }
 
+    // if loop completes without returning, compare the lengths of the strings.
+    // return the shorter (smaller) string
     return len < rhs.len;
 }
+
 
 // returns a new substring from start of string to start+numchars of string
 DSString DSString::substring(size_t start, size_t numChars) const {
     if ((start >= len) || (start + numChars > len)) {
-        std::cerr << "substring request out of range of string" << std::endl
-                  << std::endl;
+        std::cerr << "substring request out of range of string" << std::endl << std::endl;
         return DSString("");  // exception
     }
 
@@ -217,8 +227,6 @@ DSString DSString::toLower() const {
     delete[] cpyString;
 
     return lowerCaseStr;
-
-    // only if the values are in a certain range on the ascii table are they alphabetical and need to be lowered, anything else just needs to be re-inserted into the string the STA_MODE
 
     // look for range of ascii values as you go through the string
     // if falls in range -32 from that range of each character
