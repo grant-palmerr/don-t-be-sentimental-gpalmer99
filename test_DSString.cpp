@@ -56,13 +56,19 @@ int main()
     std::cout << "PARSING DONE NOW PRINTING...." << std::endl;
     trainer.getTrainingData();
     trainer.cleanTrainingVector();
-    trainer.print();
+    //trainer.print();
     trainer.tokenizeAndMapTweets();
+    trainer.printTokenMap();
+    trainer.printFilteredTokens();
+
+    trainer.filterBasicTokensFromMap();
+    //keep or remove based on accuracy
+    trainer.filterStopWordsFromMap();
     trainer.printTokenMap();
 
     
-    //std::cout << "found ddd: " << binary_search(strings.begin(), strings.end(), DSString("ddd")) << "\n";
-    //std::cout << "found zzz: " << binary_search(strings.begin(), strings.end(), DSString("zzz")) << "\n";
+    std::cout << "found ddd: " << binary_search(strings.begin(), strings.end(), DSString("ddd")) << "\n";
+    std::cout << "found zzz: " << binary_search(strings.begin(), strings.end(), DSString("zzz")) << "\n";
 
     return 0;
 }

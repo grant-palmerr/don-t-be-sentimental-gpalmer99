@@ -29,6 +29,9 @@ DSString::DSString(const char *input) {
     for (size_t i = 0; i <= len; ++i) {
         data[i] = input[i];
     }
+
+    data[len] = '\0';
+
 }
 
 // destructor
@@ -58,6 +61,8 @@ DSString &DSString::operator=(const DSString &rhs) {
     for (size_t i = 0; i <= len; ++i) {
         data[i] = rhs.data[i];
     }
+
+    data[len] = '\0';
 
     return *this;
      // check if vals are the same if they are just return the data in the object
@@ -96,7 +101,7 @@ void DSString::setLength(size_t newLength) {
 
 // index string operator
 char &DSString::operator[](size_t i) {
-    if (i >= len) {
+    if (i >= len) { 
         std::cerr << "DSString index out of range" << std::endl
                   << std::endl;
     }
@@ -142,6 +147,10 @@ bool DSString::operator==(const DSString &rhs) const {
         return false;
     }
 
+    if(data == rhs.data) {
+        return true;
+    }
+
     // iterate through each character in the string to check for equality.
     for (size_t i = 0; i < len; i++) {
         // if a character is different, return false.
@@ -159,8 +168,38 @@ bool DSString::operator==(const DSString &rhs) const {
 // returns true if the lhs is lexicographically smaller than the rhs object. (lhs < rhs) 
 bool DSString::operator<(const DSString &rhs) const {
     int pos = 0;  // position variable to start at the beginning of the strings.
+    int length = 0;
 
     // iterate through each character in both strings until reaching the end of either string.
+    if(rhs.len < len) 
+    {
+        length = rhs.len;
+    }
+    else 
+    {
+        length = len;
+    }
+    
+    for(int i = 0; i < length; i++) 
+    {
+        //never see null terminator
+        if (data[i] > rhs.data[i]) {
+            return false;
+        } 
+        // if a character in lhs is smaller than the corresponding character in rhs, lhs is smaller.
+        else if (data[i] < rhs.data[i]) {
+            return true;
+        }
+    }
+
+    if(rhs.len <= len){
+        return false;
+    }
+    else {
+        return true;
+    }
+
+/*
     while (data[pos] != '\0' && rhs.data[pos] != '\0') {
         // lexicographical rules = if a character in lhs is greater than the corresponding character in rhs, lhs cannot be smaller.
         if (data[pos] > rhs.data[pos]) {
@@ -173,10 +212,9 @@ bool DSString::operator<(const DSString &rhs) const {
         //increment
         pos++;
     }
-
+*/
     // if loop completes without returning, compare the lengths of the strings.
     // return the shorter (smaller) string
-    return len < rhs.len;
 }
 
 
@@ -202,24 +240,24 @@ DSString DSString::substring(size_t start, size_t numChars) const {
     return result;
 }
 
-// TAKE OUT STRCPY AND IMPLEMENT A LOOP
 DSString DSString::toLower() const {
     size_t i = 0;
 
     char *cpyString = new char[len + 1];
 
-    // copy each character
-    while (data[i] != '\0') {
-        cpyString[i] = data[i];
-        ++i;
-    }
-    cpyString[i] = '\0';  // Null-terminate the new string
+    cpyString[len] = '\0';  // Null-terminate the new string
 
     i = 0;  // Reset index
-    while (cpyString[i] != '\0') {
-        if (cpyString[i] >= 'A' && cpyString[i] <= 'Z') {
-            cpyString[i] += 32;
+    
+    while (data[i] != '\0') 
+    {
+        if (data[i] >= 'A' && data[i] <= 'Z') {
+            cpyString[i] = data[i] + 32;
         }
+        else {
+            cpyString[i] = data[i];
+        }
+
         ++i;
     }
 

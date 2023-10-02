@@ -2,6 +2,7 @@
 #define TRAINER_H
 
 #include <map>
+#include <set>
 #include <vector>
 
 #include "DSString.h"
@@ -19,22 +20,31 @@ class Trainer {
    public:
 
     std::map<DSString, Token> tokenMap;
+    std::set<
 
     void parseTrainData();
 
-    // tests
+    // training
     void getTrainingData();
-    void print();
-
     void populateTrainingVector(DSString sentiment, DSString id, DSString tweetTEXT);
     void cleanTrainingVector();
-    void testTrainer();
     DSString clean(DSString& uncleanedText);
+
+    // tests
+    void testTrainer();
+    void print();
+
+    // tokenizers
     void tokenizeAndMapTweets();
     void tokenizeTweets();
     std::vector<Tweet>& getTrainingTweets();
 
+    // map members
+    void filterBasicTokensFromMap(); //filters map tokens from current tokenMap
+    void filterStopWordsFromMap(); //gets rid of stop words to see if accuracy is better
     void printTokenMap(); // print map contents
+    void printFilteredTokens(); //testing tokens that appear > 200 times 
+
     
 };
 
