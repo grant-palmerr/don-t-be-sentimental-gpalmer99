@@ -43,6 +43,7 @@ class Trainer {
     //void filterStopWordsFromMap(); //gets rid of stop words to see if accuracy is better
     void printTokenMap(); // print map contents
     void printFilteredTokens(); //testing tokens that appear > 200 times 
+    void printTokenProbabilities();
 
     
 };

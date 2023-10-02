@@ -54,6 +54,8 @@ void Trainer::parseTrainData() {
             startINDEX = i + 1;
         }
     }
+
+    fclose(file);
     // ADD PRINT STATEMENT BACK
     /*std::cout << "Sentiment Index: " << SID << std::endl;
     std::cout << "ID Index: " << IDID << std::endl;
@@ -126,6 +128,8 @@ void Trainer::getTrainingData() {
         lineCount++;
         // std::cout << "Updated Line Count: " << lineCount << std::endl;
     }
+
+    fclose(file2);
 }
 
 void Trainer::populateTrainingVector(DSString sentiment, DSString id, DSString tweet) {
@@ -182,6 +186,8 @@ DSString Trainer::clean(DSString& textToClean) {
     }
 
     DSString cleanedText(textArray);
+
+    delete [] textArray;
 
     cleanedText = cleanedText.toLower();
 
@@ -341,5 +347,18 @@ void Trainer::filterBasicTokensFromMap() {
         }
 
         ++it;  // Only increment if no erase happened
+    }
+}
+
+void Trainer::printTokenProbabilities() {
+    std::cout << "Printing Token Probabilities:" << std::endl;
+
+    for (const auto& pair : tokenMap) {
+        const DSString& tokenString = pair.first;
+        const Token& token = pair.second;
+
+        std::cout << "Token: " << tokenString 
+                  << ", ProbGood: " << token.getProbGood() 
+                  << ", ProbBad: " << token.getProbBad() << std::endl;
     }
 }

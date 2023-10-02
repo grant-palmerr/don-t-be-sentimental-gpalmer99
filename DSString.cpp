@@ -229,7 +229,7 @@ bool DSString::operator<(const DSString &rhs) const {
 
 // returns a new substring from start of string to start+numchars of string
 DSString DSString::substring(size_t start, size_t numChars) const {
-    if ((start >= len) || (start + numChars > len)) {
+    if ((start + numChars > len)) {
         std::cerr << "substring request out of range of string" << std::endl << std::endl;
         return DSString("");  // exception
     }
