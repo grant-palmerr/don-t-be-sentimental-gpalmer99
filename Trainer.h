@@ -20,8 +20,7 @@ class Trainer {
    public:
 
     std::map<DSString, Token> tokenMap;
-    std::set<
-
+    
     void parseTrainData();
 
     // training
