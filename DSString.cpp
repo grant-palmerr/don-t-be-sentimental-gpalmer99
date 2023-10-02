@@ -34,6 +34,15 @@ DSString::DSString(const char *input) {
 
 }
 
+//need for single characters
+DSString::DSString(char c) {
+    len = 1;
+    data = new char[2];  // 1 for the character and 1 for the null-terminator
+    data[0] = c;
+    data[1] = '\0';
+}
+
+
 // destructor
 DSString::~DSString() {
     delete[] data;  // FREEEEE THE MEMORY needs brackets since array

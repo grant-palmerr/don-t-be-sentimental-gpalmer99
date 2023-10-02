@@ -60,8 +60,7 @@ void Tweet::tokenizeTweet() {
                 tokens.push_back(token);
             }
             // creating a string w just null char and punc
-            char tempStr[2] = {c, '\0'};
-            tokens.push_back(DSString(tempStr));
+            tokens.push_back(DSString(c));
 
             start = i + 1;
             continue;

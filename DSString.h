@@ -27,6 +27,7 @@ public:
     DSString();
     DSString(const char *); // constructor that converts a cstring
     // you can also provide  DSString(const string &); for std::string
+    DSString(char c);
 
     // Rule of three is needed if dynamic memory allocation is used
     DSString(const DSString &);            // copy constructor
