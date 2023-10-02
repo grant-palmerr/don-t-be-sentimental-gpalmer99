@@ -63,7 +63,7 @@ int main()
 
     trainer.filterBasicTokensFromMap();
     //keep or remove based on accuracy
-    trainer.filterStopWordsFromMap();
+   // trainer.filterStopWordsFromMap();
     trainer.printTokenMap();
 
     

@@ -20,7 +20,7 @@ class Trainer {
    public:
 
     std::map<DSString, Token> tokenMap;
-    
+
     void parseTrainData();
 
     // training
@@ -40,7 +40,7 @@ class Trainer {
 
     // map members
     void filterBasicTokensFromMap(); //filters map tokens from current tokenMap
-    void filterStopWordsFromMap(); //gets rid of stop words to see if accuracy is better
+    //void filterStopWordsFromMap(); //gets rid of stop words to see if accuracy is better
     void printTokenMap(); // print map contents
     void printFilteredTokens(); //testing tokens that appear > 200 times 
 
