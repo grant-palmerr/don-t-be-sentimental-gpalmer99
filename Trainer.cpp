@@ -9,7 +9,7 @@
 #include "Tweet.h"
 
 void Trainer::parseTrainData() {
-    std::cout << "IN PARSER" << std::endl;
+    std::cout << "IN TRAINING PARSER" << std::endl;
 
     FILE* file = fopen("/users7/cse/gpalmer/2341Projects/assignment-2-don-t-be-sentimental-gpalmer99/data/train_dataset_20k.csv", "r");
 
@@ -153,6 +153,35 @@ void Trainer::testTrainer() {
     }
 }
 
+// modifying vector in place so not making a large copy and instead reutnring void
+void Trainer::cleanTrainingVector() {
+    // ADD PRINT STATEMENT BACK
+    // std::cout << "Starting to clean the training vector..." << std::endl;
+
+    int counter = 0;  // To keep track of which tweet you're on
+    for (Tweet& tweet : trainingTweets) {
+        // ADD PRINT STATEMENT BACK
+        // std::cout << "Processing tweet #" << counter << std::endl;
+
+        // grab the current tweet text
+        DSString currentTweetText = tweet.getTweetText();
+        // ADD PRINT STATEMENT BACK
+        // std::cout << "Current tweet text: " << currentTweetText << std::endl;
+
+        // clean the text
+        currentTweetText = clean(currentTweetText);
+        // ADD PRINT STATEMENT BACK
+        // std::cout << "Cleaned tweet text: " << currentTweetText << std::endl;
+
+        tweet.setTweetText(currentTweetText);
+
+        // push back into cleaned vector
+        counter++;
+    }
+    // ADD PRINT STATEMENT BACK
+    // std::cout << "Finished cleaning the training vector. Now cleanvector is populated" << std::endl;
+}
+
 // cleaning method to clean my tweets from special characters, unnessecary punctuation, and non alphanum
 DSString Trainer::clean(DSString& textToClean) {
     char* textArray = new char[textToClean.length() + 1];
@@ -192,36 +221,6 @@ DSString Trainer::clean(DSString& textToClean) {
     cleanedText = cleanedText.toLower();
 
     return cleanedText;
-}
-
-// modifying vector in place so not making a large copy and instead reutnring void
-
-void Trainer::cleanTrainingVector() {
-    // ADD PRINT STATEMENT BACK
-    // std::cout << "Starting to clean the training vector..." << std::endl;
-
-    int counter = 0;  // To keep track of which tweet you're on
-    for (Tweet& tweet : trainingTweets) {
-        // ADD PRINT STATEMENT BACK
-        // std::cout << "Processing tweet #" << counter << std::endl;
-
-        // grab the current tweet text
-        DSString currentTweetText = tweet.getTweetText();
-        // ADD PRINT STATEMENT BACK
-        // std::cout << "Current tweet text: " << currentTweetText << std::endl;
-
-        // clean the text
-        currentTweetText = clean(currentTweetText);
-        // ADD PRINT STATEMENT BACK
-        // std::cout << "Cleaned tweet text: " << currentTweetText << std::endl;
-
-        tweet.setTweetText(currentTweetText);
-
-        // push back into cleaned vector
-        counter++;
-    }
-    // ADD PRINT STATEMENT BACK
-    // std::cout << "Finished cleaning the training vector. Now cleanvector is populated" << std::endl;
 }
 
 void Trainer::print() {

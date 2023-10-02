@@ -27,7 +27,7 @@ class Trainer {
     void getTrainingData();
     void populateTrainingVector(DSString sentiment, DSString id, DSString tweetTEXT);
     void cleanTrainingVector();
-    DSString clean(DSString& uncleanedText);
+    DSString clean(DSString& yuckyText);
 
     // tests
     void testTrainer();

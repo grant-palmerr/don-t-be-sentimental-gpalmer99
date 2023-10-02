@@ -18,6 +18,12 @@ Tweet::Tweet(DSString newSentimentValue, DSString newIdValue, DSString newTweetV
     tweetText = newTweetValue;
 }
 
+Tweet::Tweet(DSString idValue, DSString tweetValue) {
+    sentiment = "";
+    id = idValue;
+    tweetText = tweetValue;
+}
+
 // getters
 DSString Tweet::getId() const {
     return id;

@@ -4,11 +4,13 @@
 
 #include "DSString.h"
 #include "Trainer.h"
+#include "Tester.h"
 #include "NaivesBayesClassifier.h"
 
 int main()
 {  
-    Trainer trainer;//TRAINER TEST
+    Trainer trainer;//TRAINER OBJECT
+    Tester tester;//TESTER OBJECT
     
     DSString myString = "Hello, World!";
     std::cout << myString << "\n";
@@ -53,23 +55,29 @@ int main()
     std::cout << "END OF TESTS" << std::endl;
     // now we can do more efficient search
     std::cout << "PARSING CSV FILE" << std::endl;
-    trainer.parseTrainData();
-    std::cout << "PARSING DONE NOW PRINTING...." << std::endl;
-    trainer.getTrainingData();
-    trainer.cleanTrainingVector();
-//     trainer.print();
-     trainer.tokenizeAndMapTweets();
-    trainer.printTokenMap();
-    trainer.printFilteredTokens();
+//     trainer.parseTrainData();
+//     std::cout << "PARSING DONE NOW PRINTING...." << std::endl;
+//     trainer.getTrainingData();
+//     trainer.cleanTrainingVector();
+// //     trainer.print();
+//      trainer.tokenizeAndMapTweets();
+//     trainer.printTokenMap();
+//     trainer.printFilteredTokens();
 
-    trainer.filterBasicTokensFromMap();
-    //keep or remove based on accuracy
-    //trainer.filterStopWordsFromMap();
-    trainer.printTokenMap();
-    //sets probabilities for tokens
-    NaiveBayesClassifier classifier(trainer);
-    classifier.calculateTokenProbabilities(trainer);
-    trainer.printTokenProbabilities();
+//     trainer.filterBasicTokensFromMap();
+//     //keep or remove based on accuracy
+//     //trainer.filterStopWordsFromMap();
+//     trainer.printTokenMap();
+//     //sets probabilities for tokens
+//     NaiveBayesClassifier classifier(trainer);
+//     classifier.calculateTokenProbabilities(trainer);
+//     trainer.printTokenProbabilities();
+tester.parseTestingData();
+tester.getTestingData();
+tester.cleanTestingVector();
+tester.tokenizeTestingTweets();
+
+
     
     std::cout << "found ddd: " << binary_search(strings.begin(), strings.end(), DSString("ddd")) << "\n";
     std::cout << "found zzz: " << binary_search(strings.begin(), strings.end(), DSString("zzz")) << "\n";

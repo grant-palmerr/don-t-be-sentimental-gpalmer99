@@ -16,7 +16,10 @@ class Tweet {
     public:
         // constructors
         Tweet();
+        //constructor for training tweets
         Tweet(DSString sentiment, DSString id, DSString tweet);
+        //constructor for testing tweets
+        Tweet(DSString id, DSString tweet);
 
         // setters 
         void setSentiment(const DSString& s);
