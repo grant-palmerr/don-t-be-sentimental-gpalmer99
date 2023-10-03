@@ -1,17 +1,16 @@
+#include <algorithm>
 #include <iostream>
 #include <vector>
-#include <algorithm>
 
 #include "DSString.h"
-#include "Trainer.h"
+#include "NaiveBayesClassifier.h"
 #include "Tester.h"
-#include "NaivesBayesClassifier.h"
+#include "Trainer.h"
 
-int main()
-{  
-    Trainer trainer;//TRAINER OBJECT
-    Tester tester;//TESTER OBJECT
-    
+int main() {
+    Trainer trainer;  // TRAINER OBJECT
+    Tester tester;    // TESTER OBJECT
+
     DSString myString = "Hello, World!";
     std::cout << myString << "\n";
 
@@ -34,8 +33,7 @@ int main()
         DSString("aaa"),
         DSString("ddd"),
         DSString("eee"),
-        DSString("ccc")
-    };
+        DSString("ccc")};
 
     // find strings
     for (const auto &s : strings)
@@ -44,44 +42,62 @@ int main()
 
     std::cout << "found ddd: " << (std::find(strings.begin(), strings.end(), DSString("ddd")) != strings.end()) << "\n";
     std::cout << "found zzz: " << (std::find(strings.begin(), strings.end(), DSString("zzz")) != strings.end()) << "\n";
-    
+
     // sorting
     std::sort(strings.begin(), strings.end());
-    
+
     for (const auto &s : strings)
         std::cout
             << s << "\n";
-            
-    std::cout << "END OF TESTS" << std::endl;
-    // now we can do more efficient search
-    std::cout << "PARSING CSV FILE" << std::endl;
-//     trainer.parseTrainData();
-//     std::cout << "PARSING DONE NOW PRINTING...." << std::endl;
-//     trainer.getTrainingData();
-//     trainer.cleanTrainingVector();
-// //     trainer.print();
-//      trainer.tokenizeAndMapTweets();
-//     trainer.printTokenMap();
-//     trainer.printFilteredTokens();
 
-//     trainer.filterBasicTokensFromMap();
-//     //keep or remove based on accuracy
-//     //trainer.filterStopWordsFromMap();
-//     trainer.printTokenMap();
-//     //sets probabilities for tokens
-//     NaiveBayesClassifier classifier(trainer);
-//     classifier.calculateTokenProbabilities(trainer);
-//     trainer.printTokenProbabilities();
-tester.parseTestingData();
-tester.getTestingData();
-tester.cleanTestingVector();
-tester.tokenizeTestingTweets();
-
-
-    
+    //needed for maps to work
     std::cout << "found ddd: " << binary_search(strings.begin(), strings.end(), DSString("ddd")) << "\n";
     std::cout << "found zzz: " << binary_search(strings.begin(), strings.end(), DSString("zzz")) << "\n";
 
+    std::cout << "---------END OF DSSTRING TESTS---------" << std::endl;;
+
+    //          TRAINING:
+    trainer.parseTrainData();
+    trainer.getTrainingData();
+    trainer.cleanTrainingVector();
+    trainer.tokenizeAndMapTweets();
+    
+    trainer.filterBasicTokensFromMap(); //improves initial accuracy of 68% to 72%
+    //     decided to filter function based on accuracy
+    //     //trainer.filterStopWordsFromMap();
+
+    //          TESTING:
+    NaiveBayesClassifier classifier(trainer); //Classifier object
+    tester.parseTestingData();
+    tester.openSentimentFile();
+    tester.mapTestingSentiments();
+    tester.getTestingData();
+    tester.cleanTestingVector();
+    std::vector<Tweet> testingTweets = tester.getTestingTweets();
+
+    int correctCount = 0;
+
+    for (const Tweet &tweet : testingTweets) {
+        DSString result = classifier.classifyTweet(tweet, trainer);
+        DSString actualSentiment = tweet.getSentiment();
+
+        // Debugging print statements
+        // ADD DEBUG STATEMENT IN
+        // std::cout << "Predicted: " << result << ", Actual: " << actualSentiment << std::endl;
+
+        if (result == actualSentiment) {
+            correctCount++;
+            // ADD DEBUG STATEMENT IN
+            // std::cout << "Correct Count: " << correctCount << std::endl;
+        } else {
+            // ADD DEBUG STATEMENT IN
+            // std::cout << "Mismatch! Predicted: " << result << ", Actual: " << actualSentiment << std::endl;
+        }
+    }
+
+    //          ACCURACY:
+    double accuracy = (double)correctCount / testingTweets.size();
+    std::cout << "Accuracy: " << accuracy << std::endl;
+    
     return 0;
 }
-

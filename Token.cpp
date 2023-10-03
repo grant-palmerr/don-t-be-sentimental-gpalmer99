@@ -1,6 +1,6 @@
 #include "Token.h"
 
-Token::Token(){
+Token::Token() {
     tokenString = "";
     goodCount = 0;
     badCount = 0;
@@ -16,29 +16,24 @@ Token::Token(const DSString& str) {
     probBad = 0.0;
 }
 
-void Token::incGood() 
-{ 
-    ++goodCount; 
+void Token::incGood() {
+    ++goodCount;
 }
 
-void Token::incBad() 
-{ 
-    ++badCount; 
+void Token::incBad() {
+    ++badCount;
 }
 
-int Token::getGoodCount() const 
-{ 
-    return goodCount; 
+int Token::getGoodCount() const {
+    return goodCount;
 }
 
-int Token::getBadCount() const 
-{ 
-    return badCount; 
+int Token::getBadCount() const {
+    return badCount;
 }
 
-DSString Token::getTokenString() const 
-{ 
-    return tokenString; 
+DSString Token::getTokenString() const {
+    return tokenString;
 }
 
 void Token::setProbGood(double prob) {
@@ -56,4 +51,3 @@ double Token::getProbGood() const {
 double Token::getProbBad() const {
     return probBad;
 }
-

@@ -19,7 +19,7 @@ Tweet::Tweet(DSString newSentimentValue, DSString newIdValue, DSString newTweetV
 }
 
 Tweet::Tweet(DSString idValue, DSString tweetValue) {
-    sentiment = "";
+    sentiment = "-";
     id = idValue;
     tweetText = tweetValue;
 }
@@ -58,20 +58,6 @@ void Tweet::tokenizeTweet() {
     for (size_t i = 0; i < length; ++i) {
         char c = tweetText[i];
 
-        // checks for any special punctuation
-        // if (c == '!' || c == '?') {
-        //     if (start != i) {  // Avoid empty tokens
-        //         end = i;
-        //         DSString token = tweetText.substring(start, end - start);
-        //         tokens.push_back(token);
-        //     }
-        //     // creating a string w just null char and punc
-        //     tokens.push_back(DSString(c));
-
-        //     start = i + 1;
-        //     continue;
-        // }
-
         // looking for spaces, newlines, and end of string length-1
         if (c == ' ' || c == '\n' || c == '\t' || i == length - 1) {
             end = i;
@@ -80,14 +66,8 @@ void Tweet::tokenizeTweet() {
             }
             DSString token = tweetText.substring(start, end - start);
 
-            // get rid of any trailing spaces at the end not just one
-
-            // while (token[token.length() - 1] == ' ') {
-            //     token = token.substring(0, token.length() - 1);
-            // }
-
-            tokens.push_back(token);  // Add it to the tweet object's vector of tokens
-            start = i + 1;            // Continue from where we left off
+            tokens.push_back(token);  // add to the tweet object's vector of tokens
+            start = i + 1;            // continue from where we left off
         }
     }
 

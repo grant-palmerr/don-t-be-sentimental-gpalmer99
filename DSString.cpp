@@ -23,18 +23,17 @@ DSString::DSString(const char *input) {
         ++len;
     }
 
-    data = new char[len + 1];
+    data = new char[len + 1]; //allocate
 
-    // not  strcpy
+    // strcpy
     for (size_t i = 0; i <= len; ++i) {
         data[i] = input[i];
     }
 
-    data[len] = '\0';
-
+    data[len] = '\0'; //null-terminate
 }
 
-//need for single characters
+// need for single characters
 DSString::DSString(char c) {
     len = 1;
     data = new char[2];  // 1 for the character and 1 for the null-terminator
@@ -42,28 +41,25 @@ DSString::DSString(char c) {
     data[1] = '\0';
 }
 
-
 // destructor
 DSString::~DSString() {
     delete[] data;  // FREEEEE THE MEMORY needs brackets since array
 }
 
 DSString &DSString::operator=(const DSString &rhs) {
-    //(this == lhs == calling object for which we call this function)
-    // dont have two objects pointing to the same location
-    // is this stealing the pointer from rhs and assigning it to lhs or it actually making a copy of rhs
 
-    // DSString lhs = *this;
     if (data == rhs.data && len == rhs.len) {
         return *this;
     }
-    //delete
-    delete[] data;
-    //alocate
-    data = new char[rhs.len + 1];
+
+    delete[] data;  // delete
+    
+    data = new char[rhs.len + 1]; // alocate
+
     // point lhs to new string and clean up pointers
     // redirect pointer
     // fix length
+
     len = rhs.len;
 
     // copy
@@ -74,7 +70,7 @@ DSString &DSString::operator=(const DSString &rhs) {
     data[len] = '\0';
 
     return *this;
-     // check if vals are the same if they are just return the data in the object
+    // check if vals are the same if they are just return the data in the object
 
     // else delete that data, allocate enough space for the new rhs, and copy the stuff in and then return the new data in the object
 }
@@ -93,7 +89,6 @@ DSString::DSString(const DSString &rhs) {
     data[len] = '\0';
 }
 
-
 // returns pointer to start of string
 char *DSString::c_str() const {
     return data;
@@ -110,7 +105,7 @@ void DSString::setLength(size_t newLength) {
 
 // index string operator
 char &DSString::operator[](size_t i) {
-    if (i >= len) { 
+    if (i >= len) {
         std::cerr << "DSString index out of range" << std::endl
                   << std::endl;
     }
@@ -156,7 +151,7 @@ bool DSString::operator==(const DSString &rhs) const {
         return false;
     }
 
-    if(data == rhs.data) {
+    if (data == rhs.data) {
         return true;
     }
 
@@ -172,70 +167,51 @@ bool DSString::operator==(const DSString &rhs) const {
     return true;
 }
 
-
-//less-than operator
-// returns true if the lhs is lexicographically smaller than the rhs object. (lhs < rhs) 
+// less-than operator
+//  returns true if the lhs is lexicographically smaller than the rhs object. (lhs < rhs)
 bool DSString::operator<(const DSString &rhs) const {
     int pos = 0;  // position variable to start at the beginning of the strings.
     int length = 0;
 
     // iterate through each character in both strings until reaching the end of either string.
-    if(rhs.len < len) 
-    {
+    if (rhs.len < len) {
         length = rhs.len;
-    }
-    else 
-    {
+    } else {
         length = len;
     }
-    
-    for(int i = 0; i < length; i++) 
-    {
-        //never see null terminator
+
+    for (int i = 0; i < length; i++) {
+        // never see null terminator
         if (data[i] > rhs.data[i]) {
             return false;
-        } 
+        }
         // if a character in lhs is smaller than the corresponding character in rhs, lhs is smaller.
         else if (data[i] < rhs.data[i]) {
             return true;
         }
     }
 
-    if(rhs.len <= len){
+    // if the strings are identical up to the length of the shorter string, then the shorter string is considered smaller.
+
+    if (rhs.len <= len) {
         return false;
-    }
-    else {
+    } else {
         return true;
     }
-
-/*
-    while (data[pos] != '\0' && rhs.data[pos] != '\0') {
-        // lexicographical rules = if a character in lhs is greater than the corresponding character in rhs, lhs cannot be smaller.
-        if (data[pos] > rhs.data[pos]) {
-            return false;
-        } 
-        // if a character in lhs is smaller than the corresponding character in rhs, lhs is smaller.
-        else if (data[pos] < rhs.data[pos]) {
-            return true;
-        }
-        //increment
-        pos++;
-    }
-*/
-    // if loop completes without returning, compare the lengths of the strings.
-    // return the shorter (smaller) string
 }
-
 
 // returns a new substring from start of string to start+numchars of string
 DSString DSString::substring(size_t start, size_t numChars) const {
+    // check if the  substring range is valid.
     if ((start + numChars > len)) {
-        std::cerr << "substring request out of range of string" << std::endl << std::endl;
+        std::cerr << "substring request out of range of string" << std::endl
+                  << std::endl;
         return DSString("");  // exception
     }
 
     char *subString = new char[numChars + 1];  // allocate space for new char array
 
+    // copy chars from the original string to the new substring.
     for (size_t i = 0; i < numChars; ++i) {
         subString[i] = data[start + i];
     }
@@ -252,18 +228,16 @@ DSString DSString::substring(size_t start, size_t numChars) const {
 DSString DSString::toLower() const {
     size_t i = 0;
 
-    char *cpyString = new char[len + 1];
+    char *cpyString = new char[len + 1];  // allocate for new lowered string
 
-    cpyString[len] = '\0';  // Null-terminate the new string
+    cpyString[len] = '\0';  // null-terminate the new string
 
-    i = 0;  // Reset index
-    
-    while (data[i] != '\0') 
-    {
+    i = 0;  // reset index
+
+    while (data[i] != '\0') {
         if (data[i] >= 'A' && data[i] <= 'Z') {
             cpyString[i] = data[i] + 32;
-        }
-        else {
+        } else {
             cpyString[i] = data[i];
         }
 
@@ -275,15 +249,11 @@ DSString DSString::toLower() const {
 
     return lowerCaseStr;
 
-    // look for range of ascii values as you go through the string
-    // if falls in range -32 from that range of each character
-    // and somehow reinsert that into the string, maybe call the [] overloader or whatever we used
-
     // return the lower case string
 }
 
 std::ostream &operator<<(std::ostream &out, const DSString &str) {
-    // TODO: insert return statement here
+    // cout << DSSTRING
     out << str.data;
     return out;
 }
