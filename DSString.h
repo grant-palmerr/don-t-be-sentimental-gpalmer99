@@ -14,7 +14,7 @@ class DSString {
    private:
     char *data;  // a pointer to a character array containing the string with a `\0` terminator
     size_t len;  // the length of the string (without the terminator)
-    // Note: we keep the terminator only so we can return a c-string version in function c_str().
+                 // Note: we keep the terminator only so we can return a c-string version in function c_str().
 
    public:
     /**
@@ -84,12 +84,17 @@ class DSString {
      * This operator needs to be implemented outside of the class as
      * a friend because it operates on the stream and not the DSString object.
      **/
+
     friend std::ostream &operator<<(std::ostream &, const DSString &);
 
     // You are free to add more functionality to the class.  For example,
     // you may want to add a find(...) function that will search for a
     // substring within a string or a function that breaks a string into words.
     // You will need a split or tokenize function.
+
+    // added != OEPRATOR needed for comparisions
+
+    bool operator!=(const DSString &other) const;
 };
 
 #endif

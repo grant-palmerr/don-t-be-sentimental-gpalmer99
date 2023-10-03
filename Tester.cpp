@@ -4,10 +4,10 @@
 
 #include "Trainer.h"
 
-void Tester::parseTestingData() {
+void Tester::parseTestingData(const char* filePath1) {
     std::cout << "IN TESTING PARSER" << std::endl;
 
-    FILE* file = fopen("/users7/cse/gpalmer/2341Projects/assignment-2-don-t-be-sentimental-gpalmer99/data/test_dataset_10k.csv", "r");
+    FILE* file = fopen(filePath1, "r");
 
     if (file == NULL) {
         std::cout << "Could not open file." << std::endl;
@@ -52,10 +52,10 @@ void Tester::parseTestingData() {
     std::cout << "Tweet Index: " << TWID << std::endl;
 }
 
-void Tester::getTestingData() {
+void Tester::getTestingData(const char* filePath1) {
     std::cout << "Retrieving Testing Data" << std::endl;
 
-    FILE* file2 = fopen("/users7/cse/gpalmer/2341Projects/assignment-2-don-t-be-sentimental-gpalmer99/data/test_dataset_10k.csv", "r");
+    FILE* file2 = fopen(filePath1, "r");
 
     if (file2 == NULL) {
         std::cout << "Could not open file." << std::endl;
@@ -188,12 +188,12 @@ DSString Tester::clean(DSString& textToClean) {
     return cleanedText;
 }
 
-void Tester::openSentimentFile() {
+void Tester::openSentimentFile(const char* filePath2) {
     // gets the indicies of the commas for file for future processing
 
     std::cout << "Opening data/test_dataset_sentiment_10k.csv" << std::endl;
 
-    FILE* file = fopen("/users7/cse/gpalmer/2341Projects/assignment-2-don-t-be-sentimental-gpalmer99/data/test_dataset_sentiment_10k.csv", "r");
+    FILE* file = fopen(filePath2, "r");
 
     if (file == NULL) {
         std::cout << "Could not open file." << std::endl;

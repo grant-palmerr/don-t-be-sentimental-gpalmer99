@@ -8,9 +8,8 @@
 #include "DSString.h"
 #include "Tweet.h"
 
-void Trainer::parseTrainData() {
-
-    FILE* file = fopen("/users7/cse/gpalmer/2341Projects/assignment-2-don-t-be-sentimental-gpalmer99/data/train_dataset_20k.csv", "r");
+void Trainer::parseTrainData(const char* filePath) {
+    FILE* file = fopen(filePath, "r");
 
     if (file == NULL) {
         std::cout << "could not open the file." << std::endl;
@@ -26,7 +25,7 @@ void Trainer::parseTrainData() {
     int columnINDEX = 0;
     int startINDEX = 0;
 
-    DSString sentimentStr = "Sentiment"; //look for these in header
+    DSString sentimentStr = "Sentiment";  // look for these in header
     DSString idStr = "id";
     DSString tweetStr = "Tweet";
 
@@ -55,13 +54,12 @@ void Trainer::parseTrainData() {
     }
 
     fclose(file);
-
 }
 
-void Trainer::getTrainingData() {
-    //std::cout << "IN PRINT" << std::endl;
+void Trainer::getTrainingData(const char* filePath) {
+    // std::cout << "IN PRINT" << std::endl;
 
-    FILE* file2 = fopen("/users7/cse/gpalmer/2341Projects/assignment-2-don-t-be-sentimental-gpalmer99/data/train_dataset_20k.csv", "r");
+    FILE* file2 = fopen(filePath, "r");
 
     if (file2 == NULL) {
         std::cout << "Could not open file." << std::endl;
@@ -83,7 +81,6 @@ void Trainer::getTrainingData() {
         DSString sentiment;
         DSString id;
         DSString tweet;
-
 
         for (int i = 0; line[i] != '\0'; i++) {
             // if a quote is found
@@ -118,16 +115,15 @@ void Trainer::getTrainingData() {
 }
 
 void Trainer::populateTrainingVector(DSString sentiment, DSString id, DSString tweet) {
-    
     // create a new tweet object with nessecary constructors and add it to the vector
-      if (sentiment == "4") { // 4 means a good tweet
+    if (sentiment == "4") {  // 4 means a good tweet
         numGoodTweets++;
     } else {
-        numBadTweets++; // i guess i am assuming only 0 and 4 are in the dataset
+        numBadTweets++;  // i guess i am assuming only 0 and 4 are in the dataset
     }
 
-    Tweet newTweet(sentiment, id, tweet); //create new object using param constructor
-    trainingTweets.push_back(newTweet); //
+    Tweet newTweet(sentiment, id, tweet);  // create new object using param constructor
+    trainingTweets.push_back(newTweet);    //
 
     // debugging statement
     // std::cout << "Successfully populated vector. New size: "
@@ -143,23 +139,21 @@ void Trainer::testTrainer() {
 
 // modifying vector in place so not making a large copy and instead reutnring void
 void Trainer::cleanTrainingVector() {
-//cleans the tweets for tokenization
+    // cleans the tweets for tokenization
 
     int counter = 0;  // keep track of which tweet is getting processed
     for (Tweet& tweet : trainingTweets) {
-
         // grab the current tweet text
         DSString currentTweetText = tweet.getTweetText();
- 
+
         // clean the text
         currentTweetText = clean(currentTweetText);
 
-        tweet.setTweetText(currentTweetText); //since its a reference it modifies the tweet itself and uses the cleanedtweet instead
+        tweet.setTweetText(currentTweetText);  // since its a reference it modifies the tweet itself and uses the cleanedtweet instead
 
         // push back into cleaned vector
         counter++;
     }
-  
 }
 
 // cleaning method to clean my tweets from special characters, unnessecary punctuation, and non alphanum
@@ -196,9 +190,9 @@ DSString Trainer::clean(DSString& textToClean) {
 
     DSString cleanedText(textArray);
 
-    delete [] textArray;
+    delete[] textArray;
 
-    cleanedText = cleanedText.toLower(); //set all text tolower
+    cleanedText = cleanedText.toLower();  // set all text tolower
 
     return cleanedText;
 }
@@ -210,7 +204,7 @@ void Trainer::print() {
         DSString currentTweetText = tweet.getTweetText();
         DSString currentTweetID = tweet.getId();
         DSString currentTweetSentiment = tweet.getSentiment();
-  
+
         ++counter;
     }
 }
@@ -225,7 +219,7 @@ void Trainer::tokenizeAndMapTweets() {
         // std::cout << "Tokens for tweet with sentiment " << sentiment << " are: " << std::endl;
 
         for (std::vector<DSString>::const_iterator it = tweetTokens.begin(); it != tweetTokens.end(); ++it) {
-            DSString tokenString = *it; //dereference
+            DSString tokenString = *it;  // dereference
             if (tokenMap.find(tokenString) != tokenMap.end()) {
                 // element exists, update counts in tokenMap
                 if (sentiment == "4") {
@@ -283,8 +277,8 @@ void Trainer::filterBasicTokensFromMap() {
             continue;
         }
 
-        //if good count and bad count are the same
-        if(token.getGoodCount() == token.getBadCount()) {
+        // if good count and bad count are the same
+        if (token.getGoodCount() == token.getBadCount()) {
             it = tokenMap.erase(it);
             continue;
         }
@@ -293,7 +287,7 @@ void Trainer::filterBasicTokensFromMap() {
     }
 }
 
-//for debugging
+// for debugging
 void Trainer::printTokenProbabilities() {
     std::cout << "Printing Token Probabilities:" << std::endl;
 
@@ -301,13 +295,13 @@ void Trainer::printTokenProbabilities() {
         const DSString& tokenString = pair.first;
         const Token& token = pair.second;
 
-        std::cout << "Token: " << tokenString 
-                  << ", ProbGood: " << token.getProbGood() 
+        std::cout << "Token: " << tokenString
+                  << ", ProbGood: " << token.getProbGood()
                   << ", ProbBad: " << token.getProbBad() << std::endl;
     }
 }
 
-//getters for probabilities
+// getters for probabilities
 int Trainer::getNumGoodTweets() {
     return numGoodTweets;
 }

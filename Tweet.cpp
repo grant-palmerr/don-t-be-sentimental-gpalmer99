@@ -71,9 +71,8 @@ void Tweet::tokenizeTweet() {
         }
     }
 
-    DSString token = tweetText.substring(start, length-start);
+    DSString token = tweetText.substring(start, length - start);
     tokens.push_back(token);
-
 }
 
 std::vector<DSString> Tweet::getTokens() {

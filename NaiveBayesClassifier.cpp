@@ -2,7 +2,10 @@
 
 #include <cmath>
 
-//tried to incporoate naive bayes classification to classify my tweets 
+// tried to incporoate naive bayes classification to classify my tweets
+
+NaiveBayesClassifier::NaiveBayesClassifier() {
+}
 
 NaiveBayesClassifier::NaiveBayesClassifier(Trainer& trainer) {
     // intialize prior probabilities
@@ -57,6 +60,7 @@ DSString NaiveBayesClassifier::classifyTweet(const Tweet& tweet, Trainer& traine
         if (it != trainer.tokenMap.end()) {
             // see if that token is found in the training data
             const Token& trainingToken = it->second;
+            // add the log probabilities for this token to the running totals
             probTweetGood += log(trainingToken.getProbGood());
             probTweetBad += log(trainingToken.getProbBad());
         }

@@ -20,13 +20,13 @@ class Tester {
    public:
     std::map<DSString, DSString> idSentimentMap;  // Map to hold tweet ID and its sentiment
 
-    void parseTestingData();                                  // parse the testing data CSV to get the column indices
-    void getTestingData();                                    // get the actual testing data from the CSV file
+    void parseTestingData(const char* filePath1);             // parse the testing data CSV to get the column indices
+    void getTestingData(const char* filePath1);               // get the actual testing data from the CSV file
     void populateTestingVector(DSString id, DSString tweet);  // populates the testingTweets vector with Tweet objects from testingData
     void cleanTestingVector();                                // Clean the tweet texts in the testingTweets vector
     DSString clean(DSString& dirtyText);                      // returns a cleaned version of DSString ready for tokenizing
     void tokenizeTestingTweets();                             // tokenize the cleaned tweet for processing
-    void openSentimentFile();                                 // open the sentiment file and get the column indices
+    void openSentimentFile(const char* filePath2);            // open the sentiment file and get the column indices
     void mapTestingSentiments();                              // Map tweet IDs to their sentiments
     void printIdSentimentMap();                               // prints map
 

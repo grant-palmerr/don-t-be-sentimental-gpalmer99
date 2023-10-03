@@ -2,13 +2,13 @@
 
 **Complete this document, commit your changes to Github and submit the repository URL to Canvas.** Keep your answers short and precise.
 
-Your Name:
+Your Name: Grant Palmer
 
-Used free extension: [ ] 24 hrs or [ ] 48 hrs
+Used free extension: [ ] 24 hrs or [x] 48 hrs
 
 [ ] Early submission (48 hrs)
 
-[ ] Bonus work. Describe: ...
+[x] Bonus work. Describe: Have a 72% accuracy for classification of tweets
 
 Place [x] for what applies.
 

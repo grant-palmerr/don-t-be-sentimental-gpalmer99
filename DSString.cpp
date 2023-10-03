@@ -23,14 +23,14 @@ DSString::DSString(const char *input) {
         ++len;
     }
 
-    data = new char[len + 1]; //allocate
+    data = new char[len + 1];  // allocate
 
     // strcpy
     for (size_t i = 0; i <= len; ++i) {
         data[i] = input[i];
     }
 
-    data[len] = '\0'; //null-terminate
+    data[len] = '\0';  // null-terminate
 }
 
 // need for single characters
@@ -47,14 +47,13 @@ DSString::~DSString() {
 }
 
 DSString &DSString::operator=(const DSString &rhs) {
-
     if (data == rhs.data && len == rhs.len) {
         return *this;
     }
 
     delete[] data;  // delete
-    
-    data = new char[rhs.len + 1]; // alocate
+
+    data = new char[rhs.len + 1];  // alocate
 
     // point lhs to new string and clean up pointers
     // redirect pointer
@@ -256,4 +255,9 @@ std::ostream &operator<<(std::ostream &out, const DSString &str) {
     // cout << DSSTRING
     out << str.data;
     return out;
+}
+
+// added != OEPRATOR needed for comparisions
+bool DSString::operator!=(const DSString &other) const {
+    return !(*this == other);
 }

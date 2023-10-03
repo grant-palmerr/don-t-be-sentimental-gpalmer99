@@ -50,54 +50,54 @@ int main() {
         std::cout
             << s << "\n";
 
-    //needed for maps to work
+    // needed for maps to work
     std::cout << "found ddd: " << binary_search(strings.begin(), strings.end(), DSString("ddd")) << "\n";
     std::cout << "found zzz: " << binary_search(strings.begin(), strings.end(), DSString("zzz")) << "\n";
 
-    std::cout << "---------END OF DSSTRING TESTS---------" << std::endl;;
+    // std::cout << "---------END OF DSSTRING TESTS---------" << std::endl;;
 
     //          TRAINING:
-    trainer.parseTrainData();
-    trainer.getTrainingData();
-    trainer.cleanTrainingVector();
-    trainer.tokenizeAndMapTweets();
-    
-    trainer.filterBasicTokensFromMap(); //improves initial accuracy of 68% to 72%
-    //     decided to filter function based on accuracy
-    //     //trainer.filterStopWordsFromMap();
+    // trainer.parseTrainData();
+    // trainer.getTrainingData();
+    // trainer.cleanTrainingVector();
+    // trainer.tokenizeAndMapTweets();
+
+    // trainer.filterBasicTokensFromMap(); //improves initial accuracy of 68% to 72%
+    //      decided to filter function based on accuracy
+    //      //trainer.filterStopWordsFromMap();
 
     //          TESTING:
-    NaiveBayesClassifier classifier(trainer); //Classifier object
-    tester.parseTestingData();
-    tester.openSentimentFile();
-    tester.mapTestingSentiments();
-    tester.getTestingData();
-    tester.cleanTestingVector();
-    std::vector<Tweet> testingTweets = tester.getTestingTweets();
+    // NaiveBayesClassifier classifier(trainer); //Classifier object
+    // tester.parseTestingData();
+    // tester.openSentimentFile();
+    // tester.mapTestingSentiments();
+    // tester.getTestingData();
+    // tester.cleanTestingVector();
+    // std::vector<Tweet> testingTweets = tester.getTestingTweets();
 
-    int correctCount = 0;
+    // int correctCount = 0;
 
-    for (const Tweet &tweet : testingTweets) {
-        DSString result = classifier.classifyTweet(tweet, trainer);
-        DSString actualSentiment = tweet.getSentiment();
+    // for (const Tweet &tweet : testingTweets) {
+    //     DSString result = classifier.classifyTweet(tweet, trainer);
+    //     DSString actualSentiment = tweet.getSentiment();
 
-        // Debugging print statements
-        // ADD DEBUG STATEMENT IN
-        // std::cout << "Predicted: " << result << ", Actual: " << actualSentiment << std::endl;
+    //     // Debugging print statements
+    //     // ADD DEBUG STATEMENT IN
+    //     // std::cout << "Predicted: " << result << ", Actual: " << actualSentiment << std::endl;
 
-        if (result == actualSentiment) {
-            correctCount++;
-            // ADD DEBUG STATEMENT IN
-            // std::cout << "Correct Count: " << correctCount << std::endl;
-        } else {
-            // ADD DEBUG STATEMENT IN
-            // std::cout << "Mismatch! Predicted: " << result << ", Actual: " << actualSentiment << std::endl;
-        }
-    }
+    //     if (result == actualSentiment) {
+    //         correctCount++;
+    //         // ADD DEBUG STATEMENT IN
+    //         // std::cout << "Correct Count: " << correctCount << std::endl;
+    //     } else {
+    //         // ADD DEBUG STATEMENT IN
+    //         // std::cout << "Mismatch! Predicted: " << result << ", Actual: " << actualSentiment << std::endl;
+    //     }
+    // }
 
-    //          ACCURACY:
-    double accuracy = (double)correctCount / testingTweets.size();
-    std::cout << "Accuracy: " << accuracy << std::endl;
-    
+    // //          ACCURACY:
+    // double accuracy = (double)correctCount / testingTweets.size();
+    // std::cout << "Accuracy: " << accuracy << std::endl;
+
     return 0;
 }
