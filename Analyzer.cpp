@@ -68,7 +68,7 @@ void Analyzer::ClassifyAndEvaluate(const char* filePath1, const char* filePath2,
 
     // calculate accuracy
     double numInDataSet = static_cast<double>(testingTweets.size());
-    double accuracy = (correctCount / numInDataSet) * 100;
+    double accuracy = (correctCount / numInDataSet);
 
     // write  to file
     FILE* accuracyFp = fopen(accuracyFile, "w");
