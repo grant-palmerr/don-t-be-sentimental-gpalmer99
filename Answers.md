@@ -34,16 +34,20 @@ Replace the following image with your diagram. You can draw it by hand and take 
 
 2. How long did your code take for training and what is the time complexity of your training implementation (Big-Oh notation)? Remember that training includes reading the tweets, breaking it into words, counting, ... Explain why you get this complexity (e.g., what does `N` stand for and how do your data structures/algorithms affect the complexity).
 
-   > Your answer
+   >  Training Complexity: O(1) + O(N) + O(N * M): O(1) for reading headers + O(N) for reading and parsing trainingData + O(N * M) for cleaning the trainingTweets
+
+Here, N stands for the number of elements in the input aka the trainingData file. We add it to a vector of length N. The choice of data structure can impact both time and space complexities. Like using a hash table vs a map could  reduce the time complexity for look-up operations to O(1) in stead O(log n), but it might increase the space complexity. I chose to use a map which has an average search complexity of O(log n) for more efficient searching and look of tokens instead of choosing to iterate through a vector and potentially getting a worse case of O(N).
 
 3. How long did your code take for classification and what is the time complexity of your classification implementation (Big-Oh notation)? Explain why.
 
-   > Your answer
+   >  O(N) + O(N*M) + O(N*T): O(N) for reading and parsing testingData + O(N * M) for cleaning testingTweets + O(N * T) for classification (going through map of tokens)
 
 4. How do you know that you use proper memory management? I.e., how do you know that you do not have
    a memory leak?
 
    > ![Valgrind Statement](valgrindStatement.png)
+
+   Based off my valgrind statement, upon exiting my program 0 bytes in 0 blocks are in use, all 6.9million allocationss and 6.9million frees. ALL HEAP BLOCKS WERE FREED NO LEAKS ARE POSSIBLE
 
 5. What was the most challenging part of the assignment?
 
