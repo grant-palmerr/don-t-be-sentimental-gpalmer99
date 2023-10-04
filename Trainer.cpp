@@ -37,9 +37,7 @@ void Trainer::parseTrainData(const char* filePath) {
     for (int i = 0; i < headerLength; i++) {
         if (header[i] == ',' || header[i] == '\0' || header[i] == '\n') {
             DSString columnName = DSString(header).substring(startINDEX, i - startINDEX);
-            // ADD PRINT STATEMENT BACK
-            // std::cout << "Column: " << columnName << std::endl;  // Debug print
-
+        
             if (columnName == sentimentStr) {
                 SID = columnINDEX;
             } else if (columnName == idStr) {
