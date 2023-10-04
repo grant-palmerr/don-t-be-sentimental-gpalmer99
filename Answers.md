@@ -43,7 +43,7 @@ Replace the following image with your diagram. You can draw it by hand and take 
 4. How do you know that you use proper memory management? I.e., how do you know that you do not have
    a memory leak?
 
-   > ![Valgrind Statement](valgrindstatement.png)
+   > ![Valgrind Statement](valgrindStatement.png)
 
 5. What was the most challenging part of the assignment?
 
