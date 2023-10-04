@@ -271,8 +271,9 @@ void Trainer::filterBasicTokensFromMap() {
             continue;
         }
 
-        // get rid of tokens with goodCount + badCount <= 1
-        if (token.getGoodCount() + token.getBadCount() <= 1) {
+        // get rid of tokens with goodCount + badCount <= 10
+        //i am playing around a bit with this value to see what gives highest accuracy
+        if (token.getGoodCount() + token.getBadCount() <= 10) {
             it = tokenMap.erase(it);
             continue;
         }

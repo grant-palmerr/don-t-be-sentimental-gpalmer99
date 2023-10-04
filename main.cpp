@@ -25,3 +25,12 @@ int main(int argc, char** argv) {
 
     return 0;
 }
+
+//Comments: 
+
+//name of file opened successfully
+//training comment..
+//testing comment.. 
+//writing to file..
+
+//remove lines in files

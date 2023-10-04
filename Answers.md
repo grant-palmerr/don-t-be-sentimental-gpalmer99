@@ -8,7 +8,7 @@ Used free extension: [ ] 24 hrs or [x] 48 hrs
 
 [ ] Early submission (48 hrs)
 
-[x] Bonus work. Describe: Have a 72% accuracy for classification of tweets
+[x] Bonus work. Describe: Have a 74% accuracy for classification of tweets
 
 Place [x] for what applies.
 
