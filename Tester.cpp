@@ -5,7 +5,7 @@
 #include "Trainer.h"
 
 void Tester::parseTestingData(const char* filePath1) {
-    std::cout << "IN TESTING PARSER" << std::endl;
+    //std::cout << "IN TESTING PARSER" << std::endl;
 
     FILE* file = fopen(filePath1, "r");
 
@@ -13,12 +13,12 @@ void Tester::parseTestingData(const char* filePath1) {
         std::cout << "Could not open file." << std::endl;
         return;
     } else {
-        std::cout << "File opens successfully." << std::endl;
+        std::cout << filePath1 << " opens successfully." << std::endl;
     }
 
     char header[1024];
     fgets(header, 1024, file);
-    std::cout << "Header: " << header << std::endl;  // Debug print
+    //std::cout << "Header: " << header << std::endl;  // Debug print
 
     int columnINDEX = 0;
     int startINDEX = 0;
@@ -48,8 +48,8 @@ void Tester::parseTestingData(const char* filePath1) {
 
     fclose(file);
 
-    std::cout << "ID Index: " << IDID << std::endl;
-    std::cout << "Tweet Index: " << TWID << std::endl;
+    //std::cout << "ID Index: " << IDID << std::endl;
+    //std::cout << "Tweet Index: " << TWID << std::endl;
 }
 
 void Tester::getTestingData(const char* filePath1) {
@@ -61,7 +61,7 @@ void Tester::getTestingData(const char* filePath1) {
         std::cout << "Could not open file." << std::endl;
         return;
     } else {
-        std::cout << "File opened successfully." << std::endl;
+        std::cout << filePath1 << " opened successfully." << std::endl;
     }
 
     char line[1024];
@@ -129,7 +129,7 @@ void Tester::populateTestingVector(DSString id, DSString tweet) {
 }
 
 void Tester::cleanTestingVector() {
-    std::cout << "Starting to clean the testing vector..." << std::endl;
+    std::cout << "Cleaning testing tweets..." << std::endl;
 
     int counter = 0;  // keep track of which tweet
     for (Tweet& tweet : testingTweets) {
@@ -145,7 +145,7 @@ void Tester::cleanTestingVector() {
         counter++;
     }
 
-    std::cout << "Finished cleaning the training vector. Now cleanvector is populated" << std::endl;
+    std::cout << "Finished cleaning testingTweets vector. Squeaky clean. " << std::endl;
 }
 
 DSString Tester::clean(DSString& textToClean) {
@@ -190,21 +190,18 @@ DSString Tester::clean(DSString& textToClean) {
 
 void Tester::openSentimentFile(const char* filePath2) {
     // gets the indicies of the commas for file for future processing
-
-    std::cout << "Opening data/test_dataset_sentiment_10k.csv" << std::endl;
-
     FILE* file = fopen(filePath2, "r");
 
     if (file == NULL) {
         std::cout << "Could not open file." << std::endl;
         return;
     } else {
-        std::cout << "File opens successfully." << std::endl;
+        std::cout << filePath2 << " opens successfully." << std::endl;
     }
 
     char header[1024];
     fgets(header, 1024, file);
-    std::cout << "Header: " << header << std::endl;  // make sure header reads in correctly
+    //std::cout << "Header: " << header << std::endl;  // make sure header reads in correctly
 
     int columnINDEX = 0;
     int startINDEX = 0;
@@ -236,15 +233,15 @@ void Tester::openSentimentFile(const char* filePath2) {
 
     fclose(file);
 
-    std::cout << "Sentiment Index: " << sentimentCOMMA << std::endl;
-    std::cout << "ID Index: " << idCOMMA << std::endl;
+    //std::cout << "Sentiment Index: " << sentimentCOMMA << std::endl;
+    //std::cout << "ID Index: " << idCOMMA << std::endl;
 }
 
-void Tester::mapTestingSentiments() {
+void Tester::mapTestingSentiments(const char* filePath2) {
     // make a map to hold the id and sentiment pairs
 
-    // Open the file
-    FILE* file = fopen("/users7/cse/gpalmer/2341Projects/assignment-2-don-t-be-sentimental-gpalmer99/data/test_dataset_sentiment_10k.csv", "r");
+    // open the file
+    FILE* file = fopen(filePath2, "r");
     if (file == NULL) {
         std::cout << "Could not open file." << std::endl;
         return;
@@ -287,7 +284,7 @@ void Tester::mapTestingSentiments() {
     fclose(file);
 
     // Keeping for future debugging
-    std::cout << "Final Size of idSentimentMap: " << idSentimentMap.size() << std::endl;
+    //std::cout << "Final Size of idSentimentMap: " << idSentimentMap.size() << std::endl;
 
     // update sentiments in testingTweets with the map sentiments comparing the ids
     for (Tweet& tweet : testingTweets) {
@@ -296,7 +293,7 @@ void Tester::mapTestingSentiments() {
             tweet.setSentiment(idSentimentMap[id]);
 
         } else {
-            std::cout << "ID not found in map: " << id << std::endl;  // Debugging statement
+            //std::cout << "ID not found in map: " << id << std::endl;  // Debugging statement
         }
     }
 }

@@ -12,15 +12,15 @@ void Trainer::parseTrainData(const char* filePath) {
     FILE* file = fopen(filePath, "r");
 
     if (file == NULL) {
-        std::cout << "could not open the file." << std::endl;
+        std::cout << "could not open " << filePath << std::endl;
         return;
     } else {
-        std::cout << "the file opens successfully." << std::endl;
+        std::cout << filePath << " opened successfully.." << std::endl;
     }
 
     char header[1024];
     fgets(header, 1024, file);
-    std::cout << "Header: " << header << std::endl;  // Debug print
+    //std::cout << "Header: " << header << std::endl;  // Debug print
 
     int columnINDEX = 0;
     int startINDEX = 0;
@@ -55,15 +55,14 @@ void Trainer::parseTrainData(const char* filePath) {
 }
 
 void Trainer::getTrainingData(const char* filePath) {
-    // std::cout << "IN PRINT" << std::endl;
 
     FILE* file2 = fopen(filePath, "r");
 
     if (file2 == NULL) {
-        std::cout << "Could not open file." << std::endl;
+        std::cout << "Could not open " << filePath << std::endl;
         return;
     } else {
-        std::cout << "File opened successfully." << std::endl;
+        std::cout << filePath << " opened successfully.." << std::endl;
     }
 
     char line[1024];
@@ -99,7 +98,7 @@ void Trainer::getTrainingData(const char* filePath) {
                     tweet = field;
                 }
 
-                // Prepare for the next field
+                // get ready for the next field
                 fieldIndex++;
                 startIndex = i + 1;
             }

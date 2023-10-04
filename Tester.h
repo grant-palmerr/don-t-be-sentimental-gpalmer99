@@ -27,7 +27,7 @@ class Tester {
     DSString clean(DSString& dirtyText);                      // returns a cleaned version of DSString ready for tokenizing
     void tokenizeTestingTweets();                             // tokenize the cleaned tweet for processing
     void openSentimentFile(const char* filePath2);            // open the sentiment file and get the column indices
-    void mapTestingSentiments();                              // Map tweet IDs to their sentiments
+    void mapTestingSentiments(const char* filePath2);                              // Map tweet IDs to their sentiments
     void printIdSentimentMap();                               // prints map
 
     std::vector<Tweet> getTestingTweets() const;  // returns testing tweets

@@ -26,7 +26,7 @@ void Analyzer::ClassifyAndEvaluate(const char* filePath1, const char* filePath2,
     NaiveBayesClassifier classifier(trainer);  // Classifier object
     tester.parseTestingData(filePath1);
     tester.openSentimentFile(filePath2);
-    tester.mapTestingSentiments();
+    tester.mapTestingSentiments(filePath2);
     tester.getTestingData(filePath1);
     tester.cleanTestingVector();
 
@@ -38,8 +38,10 @@ void Analyzer::ClassifyAndEvaluate(const char* filePath1, const char* filePath2,
     int correctCount = 0;
 
     FILE* resultsFp = fopen(resultsFile, "w");
+    bool inFile = true;
     if (resultsFp == nullptr) {
         std::cout << "Could not open results file for writing.\n";
+        inFile = false;
         return;
     }
 
@@ -55,6 +57,10 @@ void Analyzer::ClassifyAndEvaluate(const char* filePath1, const char* filePath2,
         if (result == actualSentiment) {
             correctCount++;
         }
+    }
+
+    if (inFile == true) {
+        std::cout << "Output results.csv file successfully!" << std::endl;
     }
 
     // close
@@ -77,6 +83,8 @@ void Analyzer::ClassifyAndEvaluate(const char* filePath1, const char* filePath2,
                 fprintf(accuracyFp, "%s, %s, %s\n", result.c_str(), actualSentiment.c_str(), tweet.getId().c_str());
             }
         }
+
+        std::cout << "Output accuracy.csv file successfully!" << std::endl;
 
         // close
         fclose(accuracyFp);
