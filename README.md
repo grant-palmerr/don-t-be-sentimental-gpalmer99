@@ -136,17 +136,16 @@ Note that if your classifier produces an accuracy close to 50% is is not perform
 The Ways I Improved Accuracy:
 
 ### Stop words
-You may look into using [stop words](https://en.wikipedia.org/wiki/Stop_word).
+[Stop Words](https://en.wikipedia.org/wiki/Stop_word)
 
 ### Stemming
-Happy, happier, and happiest all come from the same root word of happy. Finding a common word stem is called [stemming.](https://en.wikipedia.org/wiki/Stemming).  You might explore the use of a stemming library to help get to the root word.
-Words that appear frequently in both positive and negative tweets are useless for determining sentiment. You can look for a C++ stemming library. If you have to convert `DSString` into `std::string` to use the library then you can do that.
+Happy, happier, and happiest all come from the same root word of happy. Finding a common word stem is called [stemming.](https://en.wikipedia.org/wiki/Stemming). 
 
 ### Character Encoding
-Some tweets might have interesting characters in them that aren’t part of the ASCII character set.  You might look into [character encoding](https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/) and the `wchar_t` data type (instead of `char`) if this becomes a problem.
+[character encoding](https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/). Some tweets might have interesting characters in them that aren’t part of the ASCII character set.
 
 ### Converting Counts into Probabilities
-[Naive Bayes classifiers](https://en.wikipedia.org/wiki/Naive_Bayes_classifier) are a family of simple "probabilistic classifiers" based on applying Bayes' theorem. You can try to implement this strategy.
+[Naive Bayes classifiers](https://en.wikipedia.org/wiki/Naive_Bayes_classifier) are a family of simple "probabilistic classifiers" based on applying Bayes' theorem.
 
 
 
