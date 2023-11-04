@@ -136,13 +136,14 @@ Note that if your classifier produces an accuracy close to 50% is is not perform
 The Ways I Improved Accuracy:
 
 ### Stop words
-[Stop Words](https://en.wikipedia.org/wiki/Stop_word)
+[Stop Words](https://en.wikipedia.org/wiki/Stop_word) are commonly used words in a language that are filtered out before processing natural language data (text).
+Stop words are things like "and", "the", "is", in English.
 
 ### Stemming
 Happy, happier, and happiest all come from the same root word of happy. Finding a common word stem is called [stemming.](https://en.wikipedia.org/wiki/Stemming). 
 
 ### Character Encoding
-[character encoding](https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/). Some tweets might have interesting characters in them that aren’t part of the ASCII character set.
+[Character Encoding](https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/). Some tweets might have interesting characters in them that aren’t part of the ASCII character set.
 
 ### Converting Counts into Probabilities
 [Naive Bayes classifiers](https://en.wikipedia.org/wiki/Naive_Bayes_classifier) are a family of simple "probabilistic classifiers" based on applying Bayes' theorem.
