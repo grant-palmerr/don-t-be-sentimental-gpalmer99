@@ -1,4 +1,4 @@
-# Assignment: Don't Be Sentimental!
+# Project: Don't Be Sentimental!
 
 **My Project Emphasizes Programming Aspects Like:** 
 
