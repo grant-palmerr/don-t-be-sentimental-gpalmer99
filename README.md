@@ -110,7 +110,7 @@ Example of the testing data tweet classifications file:
 
 ### DSString
 I need strings to represent tweets and individual words.
-For this project, you must implement your own custom string class (`DSString`). **I do not use the STL string class or any other available string class from the Internet for this exercise. These are only used to interface to other code (e.g., to read from a file).**
+For this project, I had to implement my own custom string class (`DSString`). **I do not use the STL string class or any other available string class from the Internet for this exercise. These are only used to interface to other code (e.g., to read from a file).**
 
 **I did not use c-string functions (in headers `<string.h>` or `<cstring>`) in my string class** since they use C memory management with lots of pointers. The only exception is that you can use `strlen()` and `strcpy()` in your constructor or assignment operator when you convert a c-string into a DSString. Otherwise all other string operations (tokenize, etc.) were implemented myself by manipulating the character array. 
 
