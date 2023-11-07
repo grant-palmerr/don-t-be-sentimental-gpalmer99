@@ -131,7 +131,7 @@ $$\text{Accuracy} = \frac{(\text{total number of correctly classified tweets fro
 
 **My algorithm performs with a 74% Accuracy!**
 
-Note that if your classifier produces an accuracy close to 50% is is not performing better than random guessing. A classifier needs to reach at least 52% to demonstrate that it is working.
+Note that if the classifier produces an accuracy close to 50% its basically not performing better than random guessing. 
 
 The Ways I Improved Accuracy:
 
