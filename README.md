@@ -1,5 +1,7 @@
 # Project: Don't Be Sentimental!
 
+**Check Out My Youtube Explaining My Project:**
+
 **My Project Emphasizes Programming Aspects Like:** 
 
 * Implementing a custom string class (DSString) that uses dynamic memory allocation and requires the implementation of the rule-of-three.
